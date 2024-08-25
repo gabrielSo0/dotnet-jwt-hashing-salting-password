@@ -1,4 +1,9 @@
 
+using hashing_salting_password.Data;
+using hashing_salting_password.Repository;
+using hashing_salting_password.Repository.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace hashing_salting_password;
 
 public class Program
@@ -10,9 +15,18 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+        
+        // database context configuration
+        builder.Services.AddDbContext<InMemoryContext>(options => {
+            options.UseInMemoryDatabase("MyDatabase");
+        });
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        // Dependency Injection
+        builder.Services.AddScoped<IUserRepository, UserRepository>();
 
         var app = builder.Build();
 
