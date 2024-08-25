@@ -14,12 +14,12 @@ namespace hashing_salting_password.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<User>> GetAll()
         {
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetUserById(int id)
+        public async Task<User> GetById(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id.Equals(id));
 
@@ -28,7 +28,7 @@ namespace hashing_salting_password.Repository
             return user;
         }
 
-        public async Task<User> CreateUser(User model)
+        public async Task<User> Create(User model)
         {
             if(model is null) return null;
 
@@ -38,7 +38,7 @@ namespace hashing_salting_password.Repository
             return model;
         }
 
-        public async Task<User> UpdateUser(User model)
+        public async Task<User> Update(User model)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id.Equals(model.Id));
 
@@ -50,7 +50,7 @@ namespace hashing_salting_password.Repository
             return user;
         }
 
-        public async Task<bool> DeleteUser(int id)
+        public async Task<bool> Delete(int id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id.Equals(id));
 

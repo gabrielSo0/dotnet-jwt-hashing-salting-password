@@ -2,6 +2,8 @@
 using hashing_salting_password.Data;
 using hashing_salting_password.Repository;
 using hashing_salting_password.Repository.Interfaces;
+using hashing_salting_password.Services;
+using hashing_salting_password.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace hashing_salting_password;
@@ -27,6 +29,7 @@ public class Program
 
         // Dependency Injection
         builder.Services.AddScoped<IUserRepository, UserRepository>();
+        builder.Services.AddScoped<IUserService, UserService>();
 
         var app = builder.Build();
 
