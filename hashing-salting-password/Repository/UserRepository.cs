@@ -44,10 +44,10 @@ namespace hashing_salting_password.Repository
 
             if(user is null) return null;
 
-            _context.Update(model);
+            _context.Entry(model).CurrentValues.SetValues(model);
             await _context.SaveChangesAsync();
 
-            return user;
+            return model;
         }
 
         public async Task<bool> Delete(int id)
