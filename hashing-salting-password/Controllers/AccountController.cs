@@ -25,24 +25,11 @@ namespace hashing_salting_password.Controllers
             return Ok(user);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateUser(User modelUser)
+        [HttpPost]
+        [Route("login")]
+        public async Task<IActionResult> Login(User modelUser)
         {
-            var user = await _userService.UpdateUser(modelUser);
-
-            if(user == null) NotFound();
-
-            return Ok(user);
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> UpdateUser(int id)
-        {
-            var isSuccess = await _userService.DeleteUser(id);
-
-            if(!isSuccess) NotFound();
-
-            return NoContent();
+            return null;
         }
     }
 }
