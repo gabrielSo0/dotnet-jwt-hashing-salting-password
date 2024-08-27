@@ -10,11 +10,16 @@ namespace hashing_salting_password.Services
     {
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
 
-        public UserService(IUserRepository userRepository, IMapper mapper)
+        public UserService(
+            IUserRepository userRepository, 
+            IMapper mapper,
+            ITokenService tokenService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _tokenService = tokenService;
         }
 
         public async Task<IEnumerable<User>> GetAllUsers()
@@ -45,13 +50,18 @@ namespace hashing_salting_password.Services
             }
         }
 
-        public async Task<User> CreateUser(UserDTO userDTO)
+        public async Task<UserDTO> CreateUser(UserDTO userDTO)
         {
             try
             {
                 var user = _mapper.Map<UserDTO, User>(userDTO);
 
-                return await _userRepository.Create(user);
+                user = await _userRepository.Create(user);
+
+                userDTO = _mapper.Map<User, UserDTO>(user);
+                userDTO.Token = _tokenService.GenerateToken(userDTO);
+
+                return userDTO;
             }
             catch (Exception ex)
             {
