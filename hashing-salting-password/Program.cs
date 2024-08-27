@@ -36,6 +36,7 @@ public class Program
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<ITokenService, TokenService>();
+        builder.Services.AddScoped<IPasswordService, PasswordService>();
 
         //Adding automapper to the services
         IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
