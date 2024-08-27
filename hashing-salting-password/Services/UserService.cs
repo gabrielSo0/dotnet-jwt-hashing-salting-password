@@ -1,3 +1,5 @@
+using AutoMapper;
+using hashing_salting_password.DTO;
 using hashing_salting_password.Models;
 using hashing_salting_password.Repository.Interfaces;
 using hashing_salting_password.Services.Interfaces;
@@ -7,10 +9,12 @@ namespace hashing_salting_password.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<User>> GetAllUsers()
@@ -41,10 +45,12 @@ namespace hashing_salting_password.Services
             }
         }
 
-        public async Task<User> CreateUser(User user)
+        public async Task<User> CreateUser(UserDTO userDTO)
         {
             try
             {
+                var user = _mapper.Map<UserDTO, User>(userDTO);
+
                 return await _userRepository.Create(user);
             }
             catch (Exception ex)

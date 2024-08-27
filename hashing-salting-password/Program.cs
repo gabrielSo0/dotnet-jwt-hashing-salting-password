@@ -1,4 +1,6 @@
 
+using AutoMapper;
+using hashing_salting_password.Config;
 using hashing_salting_password.Data;
 using hashing_salting_password.Repository;
 using hashing_salting_password.Repository.Interfaces;
@@ -30,6 +32,11 @@ public class Program
         // Dependency Injection
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
+
+        //Adding automapper to the services
+        IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+        builder.Services.AddSingleton(mapper);
+        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         var app = builder.Build();
 

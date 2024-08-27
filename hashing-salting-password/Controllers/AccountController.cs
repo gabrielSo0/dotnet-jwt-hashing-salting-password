@@ -1,3 +1,4 @@
+using hashing_salting_password.DTO;
 using hashing_salting_password.Models;
 using hashing_salting_password.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +17,9 @@ namespace hashing_salting_password.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register(User modelUser)
+        public async Task<IActionResult> Register(UserDTO userDTO)
         {
-            var user = await _userService.CreateUser(modelUser);
+            var user = await _userService.CreateUser(userDTO);
 
             if(user == null) BadRequest();
 

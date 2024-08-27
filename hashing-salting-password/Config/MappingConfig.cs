@@ -10,8 +10,8 @@ namespace hashing_salting_password.Config
         {
             var mappingConfig = new MapperConfiguration(config => 
             {
-                config.CreateMap<UserVO, User>();
-                config.CreateMap<User, UserVO>();
+                config.CreateMap<UserDTO, User>();
+                config.CreateMap<User, UserDTO>();
             });
 
             return mappingConfig;
