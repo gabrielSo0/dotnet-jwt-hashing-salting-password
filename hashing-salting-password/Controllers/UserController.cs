@@ -1,11 +1,13 @@
 using hashing_salting_password.Models;
 using hashing_salting_password.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hashing_salting_password.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
@@ -35,7 +37,7 @@ namespace hashing_salting_password.Controllers
         {
             var user = await _userService.UpdateUser(modelUser);
 
-            if(user == null) NotFound();
+            if(user == null) return NotFound();
 
             return Ok(user);
         }

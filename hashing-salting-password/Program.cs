@@ -1,4 +1,5 @@
 
+using System.Text;
 using AutoMapper;
 using hashing_salting_password.Config;
 using hashing_salting_password.Data;
@@ -6,7 +7,9 @@ using hashing_salting_password.Repository;
 using hashing_salting_password.Repository.Interfaces;
 using hashing_salting_password.Services;
 using hashing_salting_password.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace hashing_salting_password;
 
@@ -39,6 +42,26 @@ public class Program
         builder.Services.AddSingleton(mapper);
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+        builder.Services.AddAuthentication(x => 
+        {
+            x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
+        .AddJwtBearer(x => 
+        {
+            x.RequireHttpsMetadata = false;
+            x.SaveToken = true;
+            x.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("fkdasnfjdfnjnsofjasfbjdksfbjkdsfdfdsfdagfdgdf")),
+                ValidateIssuer = false,
+                ValidateAudience = false
+            };
+        });
+
+        builder.Services.AddAuthorization();
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
@@ -50,6 +73,7 @@ public class Program
 
         app.UseHttpsRedirection();
 
+        app.UseAuthentication();
         app.UseAuthorization();
 
 

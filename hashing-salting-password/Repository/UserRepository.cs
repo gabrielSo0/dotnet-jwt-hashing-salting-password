@@ -44,7 +44,7 @@ namespace hashing_salting_password.Repository
 
             if(user is null) return null;
 
-            _context.Entry(model).CurrentValues.SetValues(model);
+            _context.Entry(user).CurrentValues.SetValues(model);
             await _context.SaveChangesAsync();
 
             return model;
