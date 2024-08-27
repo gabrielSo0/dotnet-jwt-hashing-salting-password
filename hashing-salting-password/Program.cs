@@ -32,6 +32,7 @@ public class Program
         // Dependency Injection
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IUserService, UserService>();
+        builder.Services.AddScoped<ITokenService, TokenService>();
 
         //Adding automapper to the services
         IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
