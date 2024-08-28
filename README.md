@@ -12,6 +12,7 @@ Run the command 'dotnet run' or, if you're using Visual Studio, just run the API
 You can test it on postman or on swagger.
 
 **http://localhost:port/api/v1/account/register - Create User**
+>
 **http://localhost:port/api/v1/account/login - Login**
 
 The token returned from the create and login can be used for further requests.
