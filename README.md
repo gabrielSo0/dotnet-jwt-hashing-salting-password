@@ -5,7 +5,8 @@ This is a simple .NET 8 web API that use a JWT authentication method and for mor
 ## How to run
 
 You must have the .NET 8 SDK installed.
-Run the command 'dotnet run' or, if you're using Visual Studio, just run the API.
+
+Run the command 'dotnet restore' and then 'dotnet run' or, if you're using Visual Studio, just run the API.
 
 ## How to test it
 
@@ -17,3 +18,5 @@ You can test it on postman or on swagger.
 
 The token returned from the create and login can be used for further requests.
 ex: Bearer [token]
+
+Note: this API use an InMemory database.
