@@ -28,9 +28,13 @@ namespace hashing_salting_password.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login(User modelUser)
+        public async Task<IActionResult> Login(UserDTO userDTO)
         {
-            return null;
+            var user = await _userService.Login(userDTO);
+
+            if(user is null) return BadRequest("User does not exist or incorrect password!");
+
+            return Ok(user);
         }
     }
 }

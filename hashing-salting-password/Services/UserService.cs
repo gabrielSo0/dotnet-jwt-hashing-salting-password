@@ -103,5 +103,30 @@ namespace hashing_salting_password.Services
                 throw;
             }
         }
-    }
+
+        public async Task<UserDTO> Login(UserDTO userDTO)
+        {
+            try
+            {
+                var user = await _userRepository.GetByUserName(userDTO.UserName);
+
+                if(user is null) return null;   
+
+                var isPasswordValid = _passwordService.VerifyPassword(userDTO.Password, user.PasswordHash, user.PasswordSalt);
+
+                if(!isPasswordValid) return null;
+
+                userDTO.Token = _tokenService.GenerateToken(userDTO);
+                userDTO.Password = null;
+
+                return userDTO; 
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Something happended: {0}", ex);
+                throw;
+            }
+        }
+    }   
 }

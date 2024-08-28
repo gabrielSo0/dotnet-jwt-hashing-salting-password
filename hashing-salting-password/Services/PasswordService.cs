@@ -15,6 +15,12 @@ namespace hashing_salting_password.Services
             return (hash, salt);
         }
 
+        public bool VerifyPassword(string password, byte[] storedHash, byte[] storedSalt)
+        {
+            var hash = HashPassword(password, storedSalt);
+            return storedHash.SequenceEqual(hash);
+        }
+
         private static byte[] GenerateSalt(int size)
         {
             byte[] salt = new byte[size];

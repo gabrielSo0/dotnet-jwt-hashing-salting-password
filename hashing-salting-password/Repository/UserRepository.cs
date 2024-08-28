@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using hashing_salting_password.Data;
 using hashing_salting_password.Models;
 using hashing_salting_password.Repository.Interfaces;
@@ -62,5 +63,9 @@ namespace hashing_salting_password.Repository
             return true;
         }
 
+        public async Task<User> GetByUserName(string userName)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.UserName.ToLower() == userName.ToLower());
+        }
     }
 }

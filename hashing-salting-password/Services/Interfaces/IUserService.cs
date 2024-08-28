@@ -10,5 +10,6 @@ namespace hashing_salting_password.Services.Interfaces
         Task<UserDTO> CreateUser(UserDTO user);
         Task<User> UpdateUser(User user);
         Task<bool> DeleteUser(int id);
+        Task<UserDTO> Login(UserDTO userDTO);
     }
 }
